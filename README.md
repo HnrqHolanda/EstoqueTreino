@@ -1,14 +1,25 @@
-# EstoqueTreino
-Aplicação Web que trabalha um funcionamento de estoque no contexto da seção de material do Instituto Militar de Engenharia. (Semelhante a um sistema de estoque de biblioteca.)
+# 📦 EstoqueTreino
 
-Desenvolvimento utilizando:
+Aplicação Web desenvolvida para gerenciar o funcionamento de estoque no contexto da **Seção de Material** do **Instituto Militar de Engenharia**.  
+(Semelhante a um sistema de estoque de biblioteca.)
 
-React.
-Firebase.
+---
 
-Pendentes:
+## 🚀 Tecnologias Utilizadas
 
--Gerenciamento de permissões para usuários administradores.
--Sistema de busca nos itens disponíveis e cautelas realizadas.
--Tratamento de erro de login.
--Responsividade.
+- **React**
+- **Firebase**
+
+---
+
+## 🛠️ Funcionalidades Pendentes
+
+- [ ]  **Gerenciamento de permissões** para usuários administradores.
+- [ ]  **Sistema de busca** nos itens disponíveis e nas cautelas realizadas.
+- [ ]  **Tratamento de erros de login**.
+
+---
+
+Mantenha-se atualizado para novas funcionalidades e melhorias!
+
+
