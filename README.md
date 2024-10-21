@@ -20,6 +20,5 @@ Aplicação Web desenvolvida para gerenciar o funcionamento de estoque no contex
 
 ---
 
-Mantenha-se atualizado para novas funcionalidades e melhorias!
 
 
