@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import styles from '../styles/components/cautelaform.module.css'
 import { db } from "../services/firebaseConfig";  
-import { doc, setDoc, getDoc, deleteDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, deleteDoc, updateDoc } from "firebase/firestore";
 import { useContext } from "react";
 import { AppContext } from "../Context/appContext";
 
@@ -15,8 +15,31 @@ function Baixaform(){
 
 
     const { user, loading } = useContext(AppContext);
+
     
+    
+    async function atualizarValoresCautela(Id, novosDados) {
+        const cautRef = doc(db, "cautelas", Id);
       
+        try {
+          await updateDoc(cautRef, novosDados);
+          console.log("Dados de cautela atualizados com sucesso!");
+        } catch (error) {
+          console.error("Erro ao atualizar os dados: ", error);
+        }
+    }
+
+    async function atualizarValoresDoEstoque(Id, novosDados) {
+        // Referência ao documento do usuário
+        const usuarioRef = doc(db, "itens", Id);
+      
+        try {
+          await updateDoc(usuarioRef, novosDados);
+          console.log("Dados do usuário atualizados com sucesso!");
+        } catch (error) {
+          console.error("Erro ao atualizar os dados: ", error);
+        }
+    }
    
 
     const handleSubmit = async(e) => {
@@ -35,16 +58,43 @@ function Baixaform(){
             console.log("Dados do documento antes de deletar:", dadosDoDocumento);
         } else {
             console.log("Documento não encontrado!");
-            return; // Sai da função se o documento não for encontrado
+            return; 
+        }
+        
+        const qnt = dadosDoDocumento.item.quantidade - quantidade;
+
+        const updatedCaut = {
+            aluno: dadosDoDocumento.aluno,
+            item: {
+                quantidade: qnt,
+                nome: dadosDoDocumento.item.nome,
+                tamanho: dadosDoDocumento.item.tamanho,
+                tipo: dadosDoDocumento.item.tipo,
+                categoria: dadosDoDocumento.item.categoria,
+            }
         }
 
 
-        const qnt = dadosDoDocumento.quantidade - quantidade;
+        const docRef2 = doc(db, "itens", ID);
 
+        const docSnap2 = await getDoc(docRef2);
+
+        let Item = docSnap2.data()
+
+        console.log(Item)
+
+        const updatedItem = {
+            nome: dadosDoDocumento.item.nome,
+            tamanho: dadosDoDocumento.item.tamanho,
+            tipo: dadosDoDocumento.item.tipo,
+            categoria: dadosDoDocumento.item.categoria,
+            quantidade: (parseInt(Item.quantidade) + parseInt(quantidade)).toString()
+        }
         
         if (qnt == 0){
             try {
                 await deleteDoc(doc(db, "cautelas", identificador));
+                atualizarValoresDoEstoque(ID, updatedItem);
             } 
            
             catch (e) {
@@ -53,11 +103,12 @@ function Baixaform(){
         }
         if(qnt > 0){
             try {
-                await deleteDoc(doc(db, "cautelas", identificador));
+                atualizarValoresCautela(identificador, updatedCaut);
+                atualizarValoresDoEstoque(ID, updatedItem);
             } 
            
             catch (e) {
-                console.error("Erro ao deletar documento: ", e);
+                console.error("Erro ao atualizar documento: ", e);
             }
         }
 

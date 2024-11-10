@@ -7,15 +7,26 @@ import { db } from "../services/firebaseConfig";
 
 function Addmodal(){
 
-    const[ID, setID] = useState(1);
+    const[ID, setID] = useState("");
     const[nome, setNome] = useState("");
     const[categoria, setCategoria] = useState(" ");
-    const[quantidade, setQuantidade] = useState(0);
-    const[tamanho, setTamanho] = useState(" ");
+    const[quantidade, setQuantidade] = useState("");
+    const[tamanho, setTamanho] = useState("");
     const [tipo, setTipo] = useState("nulo");
 
 
     const navigate = useNavigate();
+
+    const handleCategoriaChange = (event) => {
+      setCategoria(event.target.value);
+    };  
+
+    const handleTipoChange = (event) => {
+      setTipo(event.target.value);
+    };
+
+    const tipos = ['unidades', 'pares', 'metros']
+    const categorias = ['Uniforme', "Material de Campo", "Material de Limpeza", "Multimidia", "Material Esportivo","Diversos"]
 
     //erros
     const [erro1, setErro1] = useState(false);
@@ -87,16 +98,6 @@ function Addmodal(){
             />
           </div>
           <div className={styles.inputs}>
-            <label htmlFor="Categoria">Categoria: </label>
-            <input
-              type="text"
-              placeholder="Categoria"
-              id="Categoria"
-              value={categoria}
-              onChange={(e) => setCategoria(e.target.value)}
-            />
-          </div>
-          <div className={styles.inputs}>
             <label htmlFor="Tamanho">Tamanho: </label>
             <input
               type="text"
@@ -116,31 +117,37 @@ function Addmodal(){
               onChange={(e) => setQuantidade(e.target.value)}
             />
           </div>
-          <div className={styles.radio}>
-            <div className={styles.roptions}>
-              <div>
-                  <input
-                    type="radio"
-                    id="unidades"
-                    name="tipoQuantidade"
-                    value="unidades"
-                    checked={tipo === "unidades"}
-                    onChange={(e) => setTipo(e.target.value)}
-                  />
-                  <label htmlFor="unidades">Unidades</label>
-              </div>
-              <div>
-                  <input
-                    type="radio"
-                    id="pares"
-                    name="tipoQuantidade"
-                    value="pares"
-                    checked={tipo === "pares"}
-                    onChange={(e) => setTipo(e.target.value)}
-                  />
-                  <label htmlFor="pares">Pares</label>
-              </div>
-            </div>
+          <div className={styles.inputs}>
+                    <label htmlFor="Tipo">Tipo: </label>
+                    <select 
+                    id="tipo" 
+                    value={tipo} 
+                    onChange={handleTipoChange} 
+                    required
+                    >
+                        <option value="" disabled>Tipo</option>
+                        {tipos.map((pat, index) => (
+                            <option key={index} value={pat}>
+                                {pat}
+                            </option>
+                        ))}
+                    </select>
+          </div>
+          <div className={styles.inputs}>
+                    <label htmlFor="Categoria">Categoria: </label>
+                    <select 
+                    id="categoria" 
+                    value={categoria} 
+                    onChange={handleCategoriaChange} 
+                    required
+                    >
+                        <option value="" disabled>Tipo</option>
+                        {categorias.map((pat, index) => (
+                            <option key={index} value={pat}>
+                                {pat}
+                            </option>
+                        ))}
+                    </select>
           </div>
           {erro1 && (
             <div className={styles.erro}>

@@ -6,7 +6,7 @@
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     flex-direction: column;
     align-items: center;
-    padding-bottom: 20px;
+    padding-bottom: 15px;
     background-color: white;
 }
 
@@ -37,7 +37,6 @@
 
 .inputs{
     font-family: "Roboto", sans-serif;
-    color: #7d8592;
     width: 45%;
 }
 
@@ -48,7 +47,7 @@
     border-radius: 10px;
     box-sizing: border-box;
     font-size: 16px;
-    background-color: #f4f4f4;
+    background-color: #ffffff;
     transition: border-color 0.2s ease;
 }
 
@@ -56,6 +55,7 @@
     outline: none;
     border-color: #49a9f8;
 }
+
 
 .forms button{
     width: 20%;
@@ -74,4 +74,27 @@
 .forms p{
     color: #49A9F8;
     font-size: 16px;
+}
+
+.forms select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+    appearance: none; 
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="none" stroke="%234cd080" stroke-width="2" d="M2 4l4 4 4-4"/></svg>'); /* Ícone verde para a seta */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+}
+
+.forms select:focus {
+    border-color: #49a9f8; 
+    outline: none; 
 }

@@ -5,9 +5,10 @@ import Painel from "./painel";
 import Addmodal from "./addmodal";
 import Delmodal from "./delmodal";
 import { AiOutlineClose } from "react-icons/ai";
-import { collection, getDocs, onSnapshot } from "firebase/firestore";
+import { collection, getDocs, onSnapshot, where, query as firestoreQuery } from "firebase/firestore";
 import { db } from "../services/firebaseConfig";
-
+import styles2 from '../styles/components/searchBar.module.css'
+import { FaSearch } from 'react-icons/fa';
 
 
 
@@ -15,6 +16,7 @@ function CRUD({user}){
     const [itens, setItens] = useState([]);
     const [modal1, setmodal1] = useState(false);
     const [modal2, setmodal2] = useState(false);
+    const [resultado, setResultado] = useState([])
 
     const openModal1 = () =>{
         setmodal1(true);
@@ -39,6 +41,7 @@ function CRUD({user}){
           }));
           
           setItens(itensArray);
+          setResultado(itensArray);
         });
       
         // Opcional: Retornar a função de unsubscribe, se precisar parar de escutar
@@ -48,6 +51,39 @@ function CRUD({user}){
     useEffect(() => {
         fetchItens();
     }, []);
+
+    const [query, setQuery] = useState('');
+
+  const handleChange = (event) => {
+    setQuery(event.target.value);
+    console.log(query)
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+        // Obtém todos os documentos da coleção "itens"
+        const querySnapshot = await getDocs(collection(db, "itens"));
+        const resultados = [];
+
+        // Filtra os documentos que contêm a substring no nome
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            if (data.nome.toLowerCase().includes(query.toLowerCase())) {
+                resultados.push({ id: doc.id, ...data });
+            }
+        });
+
+        console.log(resultados)
+
+        setResultado(resultados)
+    } catch (error) {
+        console.error("Erro ao buscar itens:", error);
+    }
+
+    setQuery(""); // Limpa o campo de pesquisa
+  };
 
 
     if (!user) {
@@ -64,7 +100,15 @@ function CRUD({user}){
                 <div className={styles.options}>
                     <h1>Estoque Disponível</h1>
                     <div className={styles.icons}>
-                        <SearchBar/>
+                        <form onSubmit={handleSubmit} className={styles2.SearchBar}>
+                            <input
+                                type="text"
+                                placeholder="Pesquisar por nome"
+                                value={query}
+                                onChange={handleChange}
+                            />
+                            <button type="submit"><FaSearch className={styles2.SearchIcon}/></button>
+                        </form>
                         <button className={styles.addbutton} onClick={openModal1} style={{marginRight: "30px"}}>Adicionar Item</button>
                         <button className={styles.delbutton} onClick={openModal2}>Remover Item</button>
                         {modal1 && (
@@ -105,7 +149,7 @@ function CRUD({user}){
                 </div>
                 <hr className={styles.divider}></hr>
                 <div className={styles.painel}>
-                    <Painel array={itens}/>
+                    <Painel array={resultado}/>
                 </div>
             </div>
         )
@@ -116,6 +160,17 @@ function CRUD({user}){
             <div className={styles.Container}>
                 <div className={styles.title}>
                     <h1>Estoque</h1>
+                    <div className={styles.barra} style={{marginLeft: "140px", marginTop: "2px"}}>
+                        <form onSubmit={handleSubmit} className={styles2.SearchBar}>
+                            <input
+                                type="text"
+                                placeholder="Pesquisar por nome"
+                                value={query}
+                                onChange={handleChange}
+                            />
+                            <button type="submit"><FaSearch className={styles2.SearchIcon}/></button>
+                        </form>
+                    </div>
                 </div>
                 <hr className={styles.divider}></hr>
                 <div className={styles.sumario}>
@@ -127,7 +182,7 @@ function CRUD({user}){
                 </div>
                 <hr className={styles.divider}></hr>
                 <div className={styles.painel}>
-                    <Painel array={itens}/>
+                    <Painel array={resultado}/>
                 </div>
             </div>
         )

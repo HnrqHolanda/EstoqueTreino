@@ -25,7 +25,26 @@ function CadastroForm(){
 
     const navigate = useNavigate();
 
-    
+    const handlePatChange = (event) => {
+        setPat(event.target.value);
+    };
+
+    const Patentes = [
+        'Soldado',
+        'Cabo',
+        '3° Sgt',
+        '2° Sgt',
+        '1° Sgt',
+        "Aluno 1°ano",
+        "Aluno 2°ano",
+        "Aluno 3°ano",
+        "Aluno 4°ano",
+        "2° Tenente",
+        '1° Tenente',
+        'Capitão',
+    ];
+
+
     async function handleSubmit(e){
         e.preventDefault();
         setErro1(false);
@@ -91,19 +110,26 @@ function CadastroForm(){
                     onChange={(e) => setNome(e.target.value)}/>
                 </div>
                 <div className={styles.inputs}>
-                    <label htmlFor="Posto/Graduação">Posto/Graduação: </label>
-                    <input
-                    type="Posto/Graduação"
-                    placeholder="Posto/Graduação"
-                    id="Posto/Gradualçao"
-                    value={pat}
-                    onChange={(e) => setPat(e.target.value)}/>
+                    <label htmlFor="Posto ou Graduação">Posto // Graduação: </label>
+                    <select 
+                    id="bancos" 
+                    value={pat} 
+                    onChange={handlePatChange} 
+                    required
+                    >
+                        <option value="" disabled>Escolha seu posto/Graduação</option>
+                        {Patentes.map((pat, index) => (
+                            <option key={index} value={pat}>
+                                {pat}
+                            </option>
+                        ))}
+                    </select>
                 </div>
                 <div className={styles.inputs}>
                     <label htmlFor="Número">Número: </label>
                     <input
                     type="Número"
-                    placeholder="Número"
+                    placeholder="Número (preencher apenas se for aluno)"
                     id="Número"
                     value={número}
                     onChange={(e) => setNúmero(e.target.value)}/>
