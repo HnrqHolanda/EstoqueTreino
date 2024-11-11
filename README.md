@@ -14,8 +14,7 @@ Aplicação Web desenvolvida para gerenciar o funcionamento de estoque no contex
 
 ## 🛠️ Funcionalidades Pendentes
 
-- [ ]  **Gerenciamento de permissões** para usuários administradores.
-- [ ]  **Sistema de busca** nos itens disponíveis e nas cautelas realizadas.
+- [ ]  **Sistema de busca** nas cautelas realizadas.
 - [ ]  **Tratamento de erros de login**.
 
 ---
