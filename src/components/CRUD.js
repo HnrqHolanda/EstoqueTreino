@@ -110,7 +110,6 @@ function CRUD({user}){
                             <button type="submit"><FaSearch className={styles2.SearchIcon}/></button>
                         </form>
                         <button className={styles.addbutton} onClick={openModal1} style={{marginRight: "30px"}}>Adicionar Item</button>
-                        <button className={styles.delbutton} onClick={openModal2}>Remover Item</button>
                         {modal1 && (
                                 <div className={styles.modaloverlay}>
                                     <div className={styles.modalcontent}>

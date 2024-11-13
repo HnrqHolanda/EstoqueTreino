@@ -1,5 +1,5 @@
 import { deleteDoc } from "firebase/firestore";
-import styles from "../styles/components/addmodal.module.css"
+import styles from "../styles/components/delmodal.module.css"
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"
@@ -7,20 +7,12 @@ import { doc } from "firebase/firestore";
 import { db } from "../services/firebaseConfig";
 
 
-function Delmodal(){
-
-    const[ID, setID] = useState(1);
-    const[nome, setNome] = useState("");
-    const[categoria, setCategoria] = useState(" ");
-    const[quantidade, setQuantidade] = useState(0);
-    const[tamanho, setTamanho] = useState(" ");
+function Delmodal({produto}){
 
 
-    const navigate = useNavigate();
 
     //erros
     const [erro1, setErro1] = useState(false);
-    const [erro2, setErro2] = useState(false);
     const [erro3, seterro3] = useState(false);
 
     async function handleSubmit(e){
@@ -28,45 +20,23 @@ function Delmodal(){
         setErro1(false);
         seterro3(false);
 
+        const produtoRef = doc(db, "itens", produto.id);
+        await deleteDoc(produtoRef);
 
-        if(ID <= 999 || ID > 9999){
-            setID(0);
-            setErro1(true);
-        } else{
-
-            const produtoRef = doc(db, "itens", ID);
-
-            await deleteDoc(produtoRef);
-
-            setID(0);
-
-        }
-         
     };
 
     return(
         <div className={styles.Container}>
-            <h2>Remover item</h2>
+            <h2>Confirmação!</h2>
             <div className={styles.forms}>
-                <div className={styles.inputs}>
-                    <label htmlFor="ID">Insira o identificador: </label>
-                    <input
-                    type="ID"
-                    placeholder="ID"
-                    id="ID"
-                    value={ID}
-                    onChange={(e) => setID(e.target.value)}/>
+                <div className={styles.infotext}>
+                <p>Você realmente deseja remover esse item?</p>
+                    <p>Identificador: {produto.id}</p>
+                    <p>Nome: {produto.nome}</p>
+                    <p>Categoria: {produto.categoria}</p>
+                    <p>Quantidade: {produto.quantidade} {produto.tipo}</p>
+                    <p>Tamanho: {produto.tamanho}</p>
                 </div>
-                {erro1 && (
-                    <div className={styles.erro}>
-                        <h4>ID não válido!</h4>
-                    </div>
-                )}
-                {erro3 && (
-                    <div className={styles.erro}>
-                        <h4>Formulário não submetido. As Nomes não coincidem!</h4>
-                    </div>
-                )}
                 <button onClick={handleSubmit}>Remover item</button>
             </div>
         </div>

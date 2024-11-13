@@ -15,58 +15,61 @@
     color: red;
 }
 
-.Container h2{
-    font-family: "Roboto", sans-serif;
-    font-size: 40px;
-    color: #0f0049;
-}
-
-.inputs{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    
-}
-
-
-
-.forms{
+/* Estilos para o container principal */
+.Container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     width: 100%;
-}
-
-.inputs{
-    font-family: "Roboto", sans-serif;
-    color: #7d8592;
-    width: 45%;
-}
-
-.forms input{
-    padding: 10px;
-    margin-bottom: 16px;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    box-sizing: border-box;
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* Estilos para o título */
+  .Container h2 {
+    color: #0f0049;
+    font-size: 32px;
+    margin-bottom: -10px;
+  }
+  
+  /* Estilos para o formulário */
+  .forms {
+    width: 100%;
+    margin-top: 15px;
+  }
+  
+  /* Estilos para o texto de confirmação */
+  .forms p {
+    color: #0f0049;
+    font-size: 18px;
+    margin: 10px 0;
+  }
+  
+  /* Estilos para o botão */
+  .forms button {
+    background-color: #fb3333;
+    color: white;
     font-size: 16px;
-}
-
-.forms button{
-    width: 35%;
-    background-color: #49a9f8;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
     padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 16px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-}
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+  }
+  
+  .forms button:hover {
+    background-color: #b61616;
+  }
 
-
-.forms p{
-    color: #49A9F8;
-    font-size: 16px;
-}
+  .infotext{
+    text-align: left;
+    margin-left: 20px;
+  }
+  

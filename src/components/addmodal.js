@@ -4,15 +4,16 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { setDoc, doc } from "firebase/firestore";
 import { db } from "../services/firebaseConfig";
+import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
 
 function Addmodal(){
 
     const[ID, setID] = useState("");
     const[nome, setNome] = useState("");
-    const[categoria, setCategoria] = useState(" ");
+    const[categoria, setCategoria] = useState("Uniforme");
     const[quantidade, setQuantidade] = useState("");
     const[tamanho, setTamanho] = useState("");
-    const [tipo, setTipo] = useState("nulo");
+    const [tipo, setTipo] = useState("unidades");
 
 
     const navigate = useNavigate();
@@ -34,44 +35,44 @@ function Addmodal(){
     const [erro3, seterro3] = useState(false);
 
     async function handleSubmit(e){
-        e.preventDefault();
-        setErro1(false);
-        seterro3(false);
+      e.preventDefault();
+      setErro1(false);
+      seterro3(false);
 
 
-        if(nome === '' || ID === 0 || categoria === '' || quantidade === 0 || tamanho === ''){
-            setNome('');
-            setID(0);
-            setTamanho('');
-            setCategoria('');
-            setQuantidade(0);
-            setErro1(true);
-        } else{
+      if(nome === '' || ID === 0 || categoria === '' || quantidade === 0 || tamanho === ''){
+          setNome('');
+          setID(0);
+          setTamanho('');
+          setCategoria('');
+          setQuantidade(0);
+          setErro1(true);
+      } else{
 
-            try {
-                // Cria/atualiza um documento com um ID específico
-                await setDoc(doc(db, "itens", ID), {
-                    nome: nome,
-                    categoria: categoria,
-                    quantidade: quantidade,
-                    tipo: tipo,
-                    tamanho: tamanho,
-                  });
-            
-            } 
-            
-            catch (e) {
-                console.error("Erro ao salvar documento: ", e);
-            }
- 
-            setNome('');
-            setID(0);
-            setTamanho('');
-            setCategoria('');
-            setQuantidade('');
-        }
-         
-    };
+          try {
+              // Cria/atualiza um documento com um ID específico
+              await setDoc(doc(db, "itens", ID), {
+                  nome: nome,
+                  categoria: categoria,
+                  quantidade: quantidade,
+                  tipo: tipo,
+                  tamanho: tamanho,
+                });
+          
+          } 
+          
+          catch (e) {
+              console.error("Erro ao salvar documento: ", e);
+          }
+
+          setNome('');
+          setID(0);
+          setTamanho('');
+          setCategoria('');
+          setQuantidade('');
+      }
+       
+  };
 
     return(
       <div className={styles.Container}>
