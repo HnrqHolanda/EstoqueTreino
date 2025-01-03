@@ -12,12 +12,7 @@ Aplicação Web desenvolvida para gerenciar o funcionamento de estoque no contex
 
 ---
 
-## 🛠️ Funcionalidades Pendentes
 
-- [ ]  **Sistema de busca** nas cautelas realizadas.
-- [ ]  **Tratamento de erros de login**.
-
----
 
 
 
