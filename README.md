@@ -5,7 +5,7 @@ Aplicação Web desenvolvida para gerenciar o funcionamento de estoque no contex
 
 ---
 
-## 🚀 Tecnologias Utilizadas
+## 🚀 Ferramentas Utilizadas
 
 - **React**
 - **Firebase**
